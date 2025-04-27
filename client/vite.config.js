@@ -7,7 +7,7 @@ export default defineConfig({
   server:{
     proxy:{
       '/api/':{
-        target:"http://localhost:5030"
+        target:"final-assingment-by-boni.vercel.app"
       }
     }
   }

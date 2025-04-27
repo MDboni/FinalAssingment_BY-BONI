@@ -83,6 +83,7 @@ const ProductStore=create((set)=>({
 
     Details:null,
     DetailsRequest:async(id)=>{
+        set({Details:null})
         let res=await axios.get(`/api/v1/ProductDetails/${id}`);
         if(res.data['status']==="success"){
             set({Details:res.data['data']})
@@ -91,6 +92,7 @@ const ProductStore=create((set)=>({
 
     ReviewList:null,
     ReviewListRequest:async(id)=>{
+        set({ReviewList:null})
         let res=await axios.get(`/api/v1/ProductReviewList/${id}`);
         if(res.data['status']==="success"){
             set({ReviewList:res.data['data']})

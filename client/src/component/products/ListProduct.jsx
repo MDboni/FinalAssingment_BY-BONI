@@ -26,7 +26,7 @@ const ListProduct = () => {
             !isEveryFilterPropertyEmpty?await ListByFilterRequest(Filter):null
 
         })()
-    }, []);
+    }, [Filter]);
 
 
     
@@ -49,7 +49,6 @@ const ListProduct = () => {
                         </select>                       
                         <label className='form-label mt-3'>Category</label>
                         <select value={Filter.categoryID} onChange={async (e)=>{await inputOnChange('categoryID',e.target.value)}} className="form-control form-select">
-                        <option value="">Choose Category </option>
                         <option value="">Choose Category</option>
                             {CategoriList!==null?(
                                 CategoriList.map((item,i)=>{
