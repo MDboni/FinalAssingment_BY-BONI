@@ -1,9 +1,7 @@
 const User = require('../models/User');
 const Event = require('../models/Event');
 
-// @desc    Get saved events
-// @route   GET /api/users/saved-events
-// @access  Private
+
 exports.getSavedEvents = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).populate('savedEvents');
@@ -13,9 +11,7 @@ exports.getSavedEvents = async (req, res) => {
     }
 };
 
-// @desc    Save event
-// @route   PUT /api/users/save-event/:eventId
-// @access  Private
+
 exports.saveEvent = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
@@ -25,7 +21,7 @@ exports.saveEvent = async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Check if event is already saved
+
         if (user.savedEvents.includes(req.params.eventId)) {
             return res.status(400).json({ message: 'Event already saved' });
         }
@@ -39,14 +35,11 @@ exports.saveEvent = async (req, res) => {
     }
 };
 
-// @desc    Unsave event
-// @route   PUT /api/users/unsave-event/:eventId
-// @access  Private
+
 exports.unsaveEvent = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
 
-        // Check if event is saved
         if (!user.savedEvents.includes(req.params.eventId)) {
             return res.status(400).json({ message: 'Event not saved' });
         }

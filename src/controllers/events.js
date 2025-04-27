@@ -1,8 +1,6 @@
 const Event = require('../models/Event');
 
-// @desc    Get all events
-// @route   GET /api/events
-// @access  Public
+
 exports.getEvents = async (req, res) => {
     try {
         const events = await Event.find().populate('user', 'name email');
@@ -12,9 +10,7 @@ exports.getEvents = async (req, res) => {
     }
 };
 
-// @desc    Get single event
-// @route   GET /api/events/:id
-// @access  Public
+
 exports.getEvent = async (req, res) => {
     try {
         const event = await Event.findById(req.params.id).populate('user', 'name email');
@@ -29,9 +25,7 @@ exports.getEvent = async (req, res) => {
     }
 };
 
-// @desc    Create event
-// @route   POST /api/events
-// @access  Private
+
 exports.createEvent = async (req, res) => {
     try {
         req.body.user = req.user.id;
@@ -42,9 +36,7 @@ exports.createEvent = async (req, res) => {
     }
 };
 
-// @desc    Update event
-// @route   PUT /api/events/:id
-// @access  Private
+
 exports.updateEvent = async (req, res) => {
     try {
         let event = await Event.findById(req.params.id);
@@ -53,7 +45,6 @@ exports.updateEvent = async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Make sure user is event owner
         if (event.user.toString() !== req.user.id) {
             return res.status(401).json({ message: 'Not authorized to update this event' });
         }
@@ -69,9 +60,6 @@ exports.updateEvent = async (req, res) => {
     }
 };
 
-// @desc    Delete event
-// @route   DELETE /api/events/:id
-// @access  Private
 exports.deleteEvent = async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
@@ -80,7 +68,6 @@ exports.deleteEvent = async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Make sure user is event owner
         if (event.user.toString() !== req.user.id) {
             return res.status(401).json({ message: 'Not authorized to delete this event' });
         }
